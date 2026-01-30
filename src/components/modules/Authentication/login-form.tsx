@@ -21,12 +21,16 @@ import { authClient } from "@/lib/auth-client"
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import * as z from "zod";
+import { useRouter } from "next/navigation"
+
 
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const router = useRouter();
 
   const handleGoogleLogin = async() => {
     const data = authClient.signIn.social({
@@ -60,6 +64,7 @@ export function LoginForm({
         }
 
         toast.success("User Logged in Successfully", { id: toastId });
+        router.push("/");
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

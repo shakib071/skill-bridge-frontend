@@ -28,6 +28,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./modeToggle";
+import { useSessionContext } from "@/providers/SessionProvider";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface MenuItem {
   title: string;
@@ -56,6 +59,15 @@ interface Navbar1Props {
       title: string;
       url: string;
     };
+    profile: {
+      title: string;
+      url: string;
+    };
+    logout: {
+      title: string;
+      url: string;
+    };
+
   };
 }
 
@@ -112,9 +124,23 @@ const Navbar = ({
   auth = {
     login: { title: "Login", url: "/login" },
     signup: { title: "Register", url: "/register" },
+    profile: {title: "Profile", url: "/profile" },
+    logout: { title: "Logout", url: "/logout" },
+
   },
   className,
 }: Navbar1Props) => {
+
+  const { session, isPending } = useSessionContext();
+  const router = useRouter();
+  useEffect(() => {
+    if (!isPending && !session) {
+      router.push("/login"); 
+    }
+  }, [session, isPending, router]);
+
+  
+  
   return (
     <section className={cn("py-4", className)}>
       <div className="container mx-auto">
@@ -145,12 +171,32 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle/>
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
+
+            {!session ? (
+              <>
+                <Button asChild variant="outline" size="sm">
+                <a href={auth.login.url}>{auth.login.title}</a>
+                </Button>
+                <Button asChild size="sm">
+                  <a href={auth.signup.url}>{auth.signup.title}</a>
+                </Button>
+              </>) : (
+                <>
+                  <Button asChild size="sm">
+                  <a href={auth.profile.url}>{auth.profile.title}</a>
+                  </Button>
+
+                  <Button asChild size="sm">
+                    <a href={auth.logout.url}>{auth.logout.title}</a>
+                  </Button>
+
+                </>
+              )
+              
+            }
+            
+
+            
           </div>
         </nav>
 
@@ -193,12 +239,28 @@ const Navbar = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
-                    <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
-                    </Button>
+                    {!session ? (
+                      <>
+                        <Button asChild variant="outline" size="sm">
+                        <a href={auth.login.url}>{auth.login.title}</a>
+                        </Button>
+                        <Button asChild size="sm">
+                          <a href={auth.signup.url}>{auth.signup.title}</a>
+                        </Button>
+                      </>) : (
+                        <>
+                          <Button asChild size="sm">
+                          <a href={auth.profile.url}>{auth.profile.title}</a>
+                          </Button>
+
+                          <Button asChild size="sm">
+                            <a href={auth.logout.url}>{auth.logout.title}</a>
+                          </Button>
+
+                        </>
+                      )
+                      
+                    }
                   </div>
                 </div>
               </SheetContent>
