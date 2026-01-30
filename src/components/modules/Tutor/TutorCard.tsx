@@ -8,6 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tutor } from "@/types/tutor.type";
+import Link from "next/link";
 
 
 
@@ -33,13 +34,13 @@ export function TutorCard({ tutor }: { tutor: Tutor }) {
       {Array.from({ length: 5 }, (_, i) => (
         <span
           key={i}
-          className={i < Math.round(tutor.rating) ? "text-yellow-400" : "text-gray-300"}
+          className={i < Math.round(tutor.averageRating || 0) ? "text-yellow-400" : "text-gray-300"}
         >
           ★
         </span>
       ))}
       <span className="ml-2 text-sm text-muted-foreground">
-        {tutor.rating}/5
+        {tutor.averageRating}/5
         </span>
         </div>
         <div>${tutor.hourlyRate}/hour</div>
@@ -48,7 +49,9 @@ export function TutorCard({ tutor }: { tutor: Tutor }) {
       </CardContent>
 
       <CardFooter>
-        <Button className="w-full">View Profile</Button>
+        <Link className="w-full" href={`/tutors/${tutor.id}`} passHref>
+          <Button className="w-full">View Profile</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

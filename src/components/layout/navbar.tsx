@@ -84,8 +84,8 @@ const Navbar = ({
       url: "/" 
     },
     {
-      title: "Tutor",
-      url: "/tutor"
+      title: "Tutors",
+      url: "/tutors"
     },
    
     // {

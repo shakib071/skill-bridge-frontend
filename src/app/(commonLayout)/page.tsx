@@ -2,68 +2,13 @@
 "use client"
 
 import { useSessionContext } from "@/providers/SessionProvider";
-import { FeaturedTutors } from "@/components/modules/Tutor/FeaturedTutor";
+import { Tutors } from "@/components/modules/Tutor/FeaturedTutor";
 import { Tutor } from "@/types/tutor.type";
 import { HeroSection } from "@/components/modules/Homepage/HeroSection";
+import { useEffect, useState } from "react";
+import {TutorCardSkeleton} from "../../components/modules/Tutor/LoadingSkeleton"
 
 
-const demoTutors: Tutor[] = [
-  {
-    id: "1",
-    name: "Alice Johnson",
-    category: "Mathematics",
-    rating: 4.5,
-    hourlyRate: 25,
-    image: "/tutors/alice.jpg",
-    bio: "Passionate math tutor with 5 years experience.",
-    subjects: ["Algebra", "Calculus", "Statistics"],
-    languages: ["English", "Spanish"],
-    experienceYears: 5,
-    totalSessionsCompleted: 120,
-    isFeatured: true,
-  },
-  {
-    id: "2",
-    name: "Bob Smith",
-    category: "Physics",
-    rating: 4.2,
-    hourlyRate: 30,
-    image: "/tutors/bob.jpg",
-    bio: "Physics enthusiast and experienced tutor.",
-    subjects: ["Mechanics", "Thermodynamics"],
-    languages: ["English"],
-    experienceYears: 7,
-    totalSessionsCompleted: 200,
-    isFeatured: false,
-  },
-  {
-    id: "3",
-    name: "Catherine Lee",
-    category: "Chemistry",
-    rating: 5,
-    hourlyRate: 28,
-    image: "", // will fallback to AvatarFallback
-    bio: "Chemistry expert, teaching with real-world examples.",
-    subjects: ["Organic", "Inorganic", "Analytical"],
-    languages: ["English", "French"],
-    experienceYears: 6,
-    totalSessionsCompleted: 150,
-    isFeatured: true,
-  },
-  {
-    id: "4",
-    name: "David Kim",
-    category: "English",
-    rating: 3.8,
-    hourlyRate: 20,
-    bio: "Native English tutor, friendly and engaging.",
-    subjects: ["Grammar", "Writing", "Speaking"],
-    languages: ["English", "Korean"],
-    experienceYears: 4,
-    totalSessionsCompleted: 80,
-    isFeatured: false,
-  },
-];
 
 
 
@@ -73,15 +18,45 @@ export default function Home() {
   const { session, isPending }:any= useSessionContext();
   console.log({session,isPending});
 
+  const [tutors, setTutors] = useState<Tutor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
+
+ 
+
+  useEffect(() => {
+    
+    fetch(`${APP_URL}/api/tutor?isFeatured=true`,{
+      cache:"no-store",
+    })
+      .then(res => res.json())
+      .then(data => {
+        setTutors(data.data);
+        setLoading(false);
+      });
+  }, [APP_URL]);
 
 
+  
 
   return (
     <div>
       
       <div className="w-[90%] mx-auto">
         <HeroSection></HeroSection>
-        <FeaturedTutors tutors={demoTutors}></FeaturedTutors>
+        {
+          loading ? (
+            <div className="py-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <TutorCardSkeleton key={i} />
+              ))}
+            </div>
+          ):
+          (
+            <Tutors title="Featured Tutors" tutors={tutors}></Tutors>
+          )
+        }
+        
         
       </div>
     </div>
