@@ -1,10 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client"
 import { Button } from "@/components/ui/button"
-import { authClient } from "@/lib/auth-client"
+import { useSessionContext } from "@/providers/SessionProvider";
 
-export default async function Home() {
 
-  const session = await authClient.getSession();
-  console.log("session is",session);
+export default function Home() {
+
+  
+  const { session, isPending }:any= useSessionContext();
+  console.log({session,isPending});
 
   return (
     <div>
