@@ -50,6 +50,7 @@ interface Navbar1Props {
     className?: string;
   };
   menu?: MenuItem[];
+  tutorMenu?: MenuItem[];
   auth?: {
     createTutor: {
       title: string;
@@ -92,39 +93,45 @@ const Navbar = ({
       url: "/tutors"
     },
    
-    // {
-    //   title: "Resources",
-    //   url: "#",
-    //   items: [
-    //     {
-    //       title: "Help Center",
-    //       description: "Get all the answers you need right here",
-    //       icon: <Zap className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Contact Us",
-    //       description: "We are here to help you with any questions you have",
-    //       icon: <Sunset className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Status",
-    //       description: "Check the current status of our services and APIs",
-    //       icon: <Trees className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Terms of Service",
-    //       description: "Our terms and conditions for using our services",
-    //       icon: <Book className="size-5 shrink-0" />,
-    //       url: "#",
-    //     },
-    //   ],
-    // },
     
     
   ],
+
+  tutorMenu = [
+    {
+      title: "Activities",
+      url: "#",
+      items: [
+        {
+          title: "Create Tutor Profile",
+          description: "Create your personalized tutor profile to showcase your skills",
+          icon: <Zap className="size-5 shrink-0" />,
+          url: "/create-tutor-profile",
+        },
+        {
+          title: "Dashboard",
+          description: "Access your personalized dashboard to manage your activities",
+          icon: <Sunset className="size-5 shrink-0" />,
+          url: "/tutors/dashboard",
+        },
+        {
+          title: "Create Availability",
+          description: "Set your availability for tutoring sessions",
+          icon: <Trees className="size-5 shrink-0" />,
+          url: "/tutors/create-availability",
+        },
+        {
+          title: "Profile",
+          description: "View and manage your tutor profile",
+          icon: <Book className="size-5 shrink-0" />,
+          url: "/tutors/profile",
+        },
+      ],
+    },
+  ],
+
+
+
   auth = {
     createTutor: {title: "Create Tutor Profile",url:"/create-tutor-profile"},
     login: { title: "Login", url: "/login" },
@@ -170,6 +177,8 @@ const Navbar = ({
               <NavigationMenu>
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
+                  {session?.user.role === "TUTOR" &&
+                    tutorMenu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
@@ -189,7 +198,7 @@ const Navbar = ({
                 </Button>
               </>) : (
                 <>
-                  {session?.user.role === "TUTOR"  && (
+                  {session?.user.role === "TUTOR"  &&  (
                     <Button asChild size="sm">
                       <a href={auth.createTutor.url}>{auth.createTutor.title}</a>
                     </Button>

@@ -14,6 +14,7 @@ import { Field, FieldLabel, FieldError, FieldDescription } from "@/components/ui
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { categoryService } from "@/services/category.service";
+import { TutorCardSkeleton } from "@/components/modules/Tutor/LoadingSkeleton";
 
 
 
@@ -104,6 +105,10 @@ export default  function TutorCreateForm() {
       }
     },
   });
+
+  if(loading){
+    return <TutorCardSkeleton/>
+  }
 
   return (
     <div className="max-w-3xl mx-auto my-12 px-4">
