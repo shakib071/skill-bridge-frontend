@@ -1,0 +1,37 @@
+/dashboard	Dashboard	Overview, bookings
+/dashboard/bookings	My Bookings	Booking history
+/dashboard/profile	Profile	Edit info
+
+Upcoming Sessions
+Date & time
+Tutor name
+Subject
+Status
+
+
+
+Total Sessions
+Booked
+Completed
+
+My Tutors
+Tutor name
+Subject
+View profile button
+
+Recent Bookings
+Last 5 bookings
+Date
+Status
+
+Pending Reviews
+Tutor name
+Write review button
+Profile Status
+Profile completed / incomplete
+Edit profile button
+
+
+
+
+

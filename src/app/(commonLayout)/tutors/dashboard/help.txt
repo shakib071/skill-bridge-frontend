@@ -1,5 +1,3 @@
 /tutor/dashboard        → stats, overview
-/tutor/sessions         → upcoming & past sessions
-/tutor/availability     → create/manage slots
-/tutor/bookings         → booking requests
+/tutor/bookings         → upcoming & past sessions
 /tutor/profile          → edit tutor profile

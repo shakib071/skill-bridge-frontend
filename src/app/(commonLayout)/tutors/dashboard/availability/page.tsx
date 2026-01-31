@@ -7,7 +7,7 @@ import React from 'react'
 
 export default async function page() {
     
-    const availabilityData = await AvailabilityService.getAllCategory();
+    const availabilityData = await AvailabilityService.getAllAvailability();
     
 
     console.log(availabilityData);

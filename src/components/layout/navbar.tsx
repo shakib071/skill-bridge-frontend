@@ -51,6 +51,7 @@ interface Navbar1Props {
   };
   menu?: MenuItem[];
   tutorMenu?: MenuItem[];
+  studentMenu?: MenuItem[];
   auth?: {
     createTutor: {
       title: string;
@@ -130,6 +131,14 @@ const Navbar = ({
     },
   ],
 
+  studentMenu = [
+    {
+      title: "Dashboard",
+      url: "/students/dashboard",
+      
+    },
+  ],
+
 
 
   auth = {
@@ -143,7 +152,9 @@ const Navbar = ({
   className,
 }: Navbar1Props) => {
 
-  const { session, isPending } = useSessionContext();
+  const context = useSessionContext();
+  const session = context?.session;
+  const isPending = context?.isPending ?? false;
   const router = useRouter();
   useEffect(() => {
     if (!isPending && !session) {
@@ -177,8 +188,10 @@ const Navbar = ({
               <NavigationMenu>
                 <NavigationMenuList>
                   {menu.map((item) => renderMenuItem(item))}
-                  {session?.user.role === "TUTOR" &&
+                  {session?.user?.role === "TUTOR" &&
                     tutorMenu.map((item) => renderMenuItem(item))}
+                  {session?.user?.role === "STUDENT" &&
+                    studentMenu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
