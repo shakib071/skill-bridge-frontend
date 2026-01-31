@@ -4,9 +4,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
 import { Tutor } from "@/types/tutor.type";
-import { tutorService } from "@/services/tutor.service";
+
 
 export default  function TutorProfilePage({ tutor }: { tutor: Tutor }) {
 

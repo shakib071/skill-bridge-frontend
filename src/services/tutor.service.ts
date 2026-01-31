@@ -1,3 +1,5 @@
+
+
 const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
 export const tutorService = {
@@ -10,5 +12,6 @@ export const tutorService = {
         catch(e){
             return { data: null, error: { message: "Something Went Wrong" }}
         }
-    }
+    },
+   
 }
