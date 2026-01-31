@@ -1,6 +1,6 @@
 
 import TutorProfilePage from '@/components/modules/Tutor/TutorDetails'
-import { tutorService } from '@/components/services/tutor.service';
+import { tutorService } from '@/services/tutor.service';
 import { Tutor } from '@/types/tutor.type';
 
 

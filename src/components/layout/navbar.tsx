@@ -51,6 +51,10 @@ interface Navbar1Props {
   };
   menu?: MenuItem[];
   auth?: {
+    createTutor: {
+      title: string;
+      url: string;
+    };
     login: {
       title: string;
       url: string;
@@ -122,6 +126,7 @@ const Navbar = ({
     
   ],
   auth = {
+    createTutor: {title: "Create Tutor Profile",url:"/create-tutor-profile"},
     login: { title: "Login", url: "/login" },
     signup: { title: "Register", url: "/register" },
     profile: {title: "Profile", url: "/profile" },
@@ -137,7 +142,7 @@ const Navbar = ({
     if (!isPending && !session) {
       router.push("/login"); 
     }
-  }, [session, isPending, router]);
+  }, []);
 
   
   
@@ -174,6 +179,8 @@ const Navbar = ({
 
             {!session ? (
               <>
+                
+
                 <Button asChild variant="outline" size="sm">
                 <a href={auth.login.url}>{auth.login.title}</a>
                 </Button>
@@ -182,6 +189,11 @@ const Navbar = ({
                 </Button>
               </>) : (
                 <>
+                  {session?.user.role === "TUTOR"  && (
+                    <Button asChild size="sm">
+                      <a href={auth.createTutor.url}>{auth.createTutor.title}</a>
+                    </Button>
+                  )}
                   <Button asChild size="sm">
                   <a href={auth.profile.url}>{auth.profile.title}</a>
                   </Button>

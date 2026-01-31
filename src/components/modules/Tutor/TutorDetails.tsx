@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { Tutor } from "@/types/tutor.type";
-import { tutorService } from "@/components/services/tutor.service";
+import { tutorService } from "@/services/tutor.service";
 
 export default  function TutorProfilePage({ tutor }: { tutor: Tutor }) {
 

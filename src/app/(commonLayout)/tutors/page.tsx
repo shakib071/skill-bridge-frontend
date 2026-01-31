@@ -14,7 +14,7 @@ export default function tutorPage() {
 
     useEffect(() => {
     
-    fetch(`${APP_URL}/api/tutor?isFeatured=true`,{
+    fetch(`${APP_URL}/api/tutor`,{
         cache:"no-store",
     })
         .then(res => res.json())
