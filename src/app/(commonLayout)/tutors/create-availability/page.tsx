@@ -78,7 +78,7 @@ export default function AvailabilityCreateForm() {
 
         toast.success("Availability slot created", { id: toastId });
         form.reset();
-        router.push("/tutors/dashboard");
+        router.push("/tutors/dashboard/availability");
         
       } catch (err: any) {
         toast.error(err.message || "Something went wrong", { id: toastId });

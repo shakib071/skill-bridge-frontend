@@ -1,6 +1,9 @@
+
+
 const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
 export const categoryService = {
+    
     getAllCategory: async function () {
         try{
             const result = await fetch(`${APP_URL}/api/category`);
