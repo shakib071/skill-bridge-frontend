@@ -62,14 +62,15 @@ export default function AvailabilityCreateForm() {
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating slot...");
       try {
+        const today = new Date().toISOString().split('T')[0];
         const res = await fetch("http://localhost:5000/api/availability", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({
             day: value.day,
-            startTime: new Date(`1970-01-01T${value.startTime}:00`),
-            endTime: new Date(`1970-01-01T${value.endTime}:00`),
+            startTime: new Date(`${today}T${value.startTime}:00`),
+            endTime: new Date(`${today}T${value.endTime}:00`),
           }),
         });
 
@@ -80,8 +81,9 @@ export default function AvailabilityCreateForm() {
         form.reset();
         router.push("/tutors/dashboard/availability");
         
-      } catch (err: any) {
-        toast.error(err.message || "Something went wrong", { id: toastId });
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+        toast.error(errorMessage, { id: toastId });
       }
     },
   });

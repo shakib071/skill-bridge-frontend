@@ -88,7 +88,8 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
         toast.success("Session booked successfully!", { id: toastId });
         router.push("/students/dashboard/upcoming-sessions");
       } catch (err) {
-        toast.error(err.message || "Something went wrong", { id: toastId });
+        const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+        toast.error(errorMessage, { id: toastId });
       }
     },
   });
