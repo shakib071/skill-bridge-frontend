@@ -52,6 +52,7 @@ interface Navbar1Props {
   menu?: MenuItem[];
   tutorMenu?: MenuItem[];
   studentMenu?: MenuItem[];
+  adminMenu?: MenuItem[];
   auth?: {
     createTutor: {
       title: string;
@@ -137,6 +138,13 @@ const Navbar = ({
       url: "/students/dashboard",
       
     },
+  ],  
+  adminMenu = [
+    {
+      title: "Dashboard",
+      url: "/admin/dashboard",
+      
+    },
   ],
 
 
@@ -192,6 +200,8 @@ const Navbar = ({
                     tutorMenu.map((item) => renderMenuItem(item))}
                   {session?.user?.role === "STUDENT" &&
                     studentMenu.map((item) => renderMenuItem(item))}
+                  {session?.user?.role === "ADMIN" &&
+                    adminMenu.map((item) => renderMenuItem(item))}
                 </NavigationMenuList>
               </NavigationMenu>
             </div>

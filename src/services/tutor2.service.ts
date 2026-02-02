@@ -1,6 +1,4 @@
 
-
-
 const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
 export const tutorService = {
@@ -13,6 +11,7 @@ export const tutorService = {
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
+                        
                     }
                 }
             );

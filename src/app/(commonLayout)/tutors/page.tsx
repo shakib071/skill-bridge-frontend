@@ -4,7 +4,7 @@ import { TutorCardSkeleton } from '@/components/modules/Tutor/LoadingSkeleton';
 import { Tutor } from '@/types/tutor.type';
 import { useEffect, useState } from "react";
 
-export default function tutorPage() {
+export default function TutorPage() {
 
     const [tutors, setTutors] = useState<Tutor[]>([]);
     const [loading, setLoading] = useState(true);
