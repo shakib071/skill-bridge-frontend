@@ -42,7 +42,29 @@ export const bookingsService = {
         catch(e){
             return { data: null, error: { message: "Something Went Wrong" }}
         }
-    }
+    },
+
+
+    getAllCompletedBookings: async function () {
+        try{
+            const cookieStore = await cookies();
+            const result = await fetch(`${APP_URL}/api/booking/get-completed-bookings`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        Cookie: cookieStore.toString(),
+                    }
+                }
+            );
+            const data = await result.json();
+            return {data:data,error:null};
+        }
+        catch(e){
+            return { data: null, error: { message: "Something Went Wrong" }}
+        }
+    },
+    
 
     
 }

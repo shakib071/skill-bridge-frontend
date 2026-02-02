@@ -12,10 +12,12 @@ interface StudentDashboardLayoutProps {
 
 const navItems = [
   
+  
+  { name: "Home", href: "/students/dashboard" },
   { name: "Sessions", href: "/students/dashboard/sessions" },
-  { name: "My Tutors", href: "/students/dashboard/my-tutors" },
-  { name: "Pending Reviews", href: "/students/dashboard/pending-reviews" },
-  { name: "Profile", href: "/students/dashboard/profile" },
+  { name: "Reviews", href: "/students/dashboard/reviews" },
+  
+  
   
 ];
 

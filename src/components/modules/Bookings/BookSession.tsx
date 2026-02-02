@@ -86,7 +86,7 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
         if (!res.ok) throw new Error(data.message || "Booking failed");
 
         toast.success("Session booked successfully!", { id: toastId });
-        router.push("/students/dashboard/upcoming-sessions");
+        router.push("/students/dashboard/sessions");
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Something went wrong";
         toast.error(errorMessage, { id: toastId });
@@ -94,7 +94,7 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
     },
   });
 
-// Update duration & price when slot changes
+
 
 
 useEffect(() => {

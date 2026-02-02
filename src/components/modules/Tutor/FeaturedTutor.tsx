@@ -7,6 +7,7 @@ interface TutorsProps {
 }
 
 export function Tutors({title, tutors }: TutorsProps) {
+  console.log(tutors);
   return (
     <section className="py-16">
       <div className="container">

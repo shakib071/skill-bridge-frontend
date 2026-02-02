@@ -15,7 +15,7 @@ const navItems = [
   { name: "Sessions", href: "/tutors/dashboard/sessions" },
   { name: "Availability", href: "/tutors/dashboard/availability" },
   { name: "create-availability", href: "/tutors/dashboard/create-availability" },
-  { name: "Ratings and Reviews", href: "/tutors/dashboard/ratings-and-reviews" },
+
   { name: "Profile", href: "/tutors/dashboard/profile" },
   
 ];

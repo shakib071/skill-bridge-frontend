@@ -93,7 +93,7 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
 
       }
       catch(e){
-        toast.error("Status Updation Failed",{ id: toastId});
+        toast.error(e.message||"Status Updation Failed",{ id: toastId});
       }
   }
     

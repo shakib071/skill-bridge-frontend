@@ -23,8 +23,8 @@ export default async function Page({
     
     <div>
         {tutor?.data[0] && availability?.data.length > 0 && <BookSessionForm tutor={tutor?.data[0]} availability={availability?.data} />}
-        {!tutor?.data[0] && <p>No tutor details available</p>}
-        {!availability?.data || availability?.data.length === 0 && <p>No available slots</p>}
+        {!tutor?.data[0] && <p className='text-center py-5 text-bold text-4xl'>No tutor details available</p>}
+        {!availability?.data || availability?.data.length === 0 && <p className='text-center py-5 text-bold text-4xl'>No available slots</p>}
         
     </div>
   )
