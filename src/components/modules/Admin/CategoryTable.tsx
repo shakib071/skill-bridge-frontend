@@ -68,21 +68,7 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this category?")) return;
 
-    try {
-      const res = await fetch(`/api/category/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to delete category");
-      toast.success("Category deleted!");
-      router.refresh();
-    } catch (err) {
-      toast.error(err.message || "Something went wrong");
-    }
-  };
 
   if(loading){
     return <TutorCardSkeleton/>

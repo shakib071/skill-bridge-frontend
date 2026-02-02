@@ -5,6 +5,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { useSessionContext } from "@/providers/SessionProvider";
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+// import { useRouter } from "next/router";
 
 interface Session {
   id: string;
@@ -13,6 +16,7 @@ interface Session {
   duration: number;
   total_price: number;
   availability?:boolean;
+  status?:string,
   tutor?: {
     user: { name: string };
     category?: string;
@@ -31,14 +35,75 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
     const context = useSessionContext();
     const session = context?.session;
     const pending = context?.isPending;
+    // console.log({sessions});
+    const router = useRouter();
+    const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
+    const handleCompletedORAttend = async(id:string) => {
+        const toastId = toast.loading("Updating Status");
+        try{
+          const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
+            method: "PATCH",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({status: "COMPLETED"})
+          });
+
+          const data = await res.json();
+
+          if(!data.success){
+            toast.error("Status Updation Failed",{ id: toastId});
+            return;
+          }
+          toast.success("Status Updated Successfully",{id:toastId});
+          // console.log(data);
+          router.refresh();
+
+          
+
+
+        }
+        catch(e){
+          toast.error("Status Updation Failed",{ id: toastId});
+        }
+    }
+
+      const cancelBookingStatus = async(id:string) => {
+      const toastId = toast.loading("Canceling Status");
+      try{
+        const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
+          method: "PATCH",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({status: "CANCELLED"})
+        });
+
+        const data = await res.json();
+
+        if(!data.success){
+          toast.error("Status Cancelation Failed",{ id: toastId});
+          return;
+        }
+        toast.success("Status Cancelled Successfully",{id:toastId});
+        // console.log(data);
+        router.refresh();
+
+        
+
+
+      }
+      catch(e){
+        toast.error("Status Updation Failed",{ id: toastId});
+      }
+  }
     
-    console.log("User Session in Sessions Table:",session);
+    // console.log("User Session in Sessions Table:",session);
     if(!session && pending){
       return <TutorCardSkeleton />;
     }
     // @ts-expect-error: Assume user has a 'role' property
     const role = session?.user?.role;
-    console.log("User Role in Sessions Table:",role);
+    // console.log("User Role in Sessions Table:",role);
   return (
     <Card className="w-full mt-6">
       <CardHeader>
@@ -55,6 +120,7 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
               {role === "TUTOR" && <TableHead>Student</TableHead>}
               <TableHead>Duration (hrs)</TableHead>
               <TableHead>Total ($)</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -81,30 +147,44 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
                     {role === "TUTOR" && <TableCell>{session.student?.user.name}</TableCell>}
                     <TableCell>{session.duration}</TableCell>
                     <TableCell>${session.total_price.toFixed(2)}</TableCell>
-                    {role === "TUTOR" ? (
+                    <TableCell>{session.status}</TableCell>
+                    {role === "TUTOR" && session?.status=="CONFIRMED" && (
                     <TableCell>
                       <Button
                         size="sm"
                         variant="outline"
                         className="text-[#1239e8]"
-                        onClick={() => console.log("Completed", session.id)}
+                        onClick={() => handleCompletedORAttend(session?.id)}
                       >
                         Complete
                       </Button>
                     </TableCell>
-                    ):
-                    (
-                        <TableCell>
-                      <Button
-                            size="sm"
-                            variant="outline"
-                            className="text-red-500"
-                            onClick={() => console.log("Cancel", session.id)}
-                        >
-                            Cancel
-                        </Button>
+                    )
+                    }
+                    {
+                      role === "STUDENT" && session?.status=="CONFIRMED" &&
+                      (
+                        <TableCell className="flex justify-center items-center">
+                          <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-green-500"
+                                onClick={() => handleCompletedORAttend(session?.id)}
+                            >
+                                Attend
+                            </Button>
+
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-red-500"
+                                onClick={() => cancelBookingStatus(session?.id)}
+                            >
+                                Cancel
+                            </Button>
                         </TableCell>
-                    )}
+                    )
+                    }
                   </TableRow>
                 );
               })

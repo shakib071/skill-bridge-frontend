@@ -4,7 +4,7 @@ import React from 'react'
 
 export default async function Page() {
    const {data} = await bookingsService.getAllSession();
-   // console.log("Sessions Data:",data?.data);
+  //  console.log("Sessions Data:",data?.data);
    return (
      <div>
  
