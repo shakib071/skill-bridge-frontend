@@ -48,7 +48,7 @@ export default  function AvailabilityTable({ data}: AvailabilityTableProps) {
             <TableHead>Start Time</TableHead>
             <TableHead>End Time</TableHead>
             <TableHead>Status</TableHead>
-             <TableHead>Actions</TableHead>
+            
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -71,16 +71,7 @@ export default  function AvailabilityTable({ data}: AvailabilityTableProps) {
                 </Badge>
               </TableCell>
              
-                <TableCell>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="text-red-600 border-red-600 hover:bg-red-50"
-                    onClick={() => onDelete(slot.id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+         
               
             </TableRow>
           ))}
