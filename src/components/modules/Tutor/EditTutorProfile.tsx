@@ -9,20 +9,22 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle,  CardContent } from "@/components/ui/card";
 import { Field, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { categoryService } from "@/services/category.service";
 import { TutorCardSkeleton } from "@/components/modules/Tutor/LoadingSkeleton";
+import { Tutor } from "@/types/tutor.type";
 
 
 
 
 const formSchema = z.object({
+   name: z.string().min(2).max(50),
    bio: z.string().min(10).max(250),
 
-  hourly_rate: z
+   hourly_rate: z
     .string()
     .refine((v) => Number(v) > 0, "Hourly rate must be greater than 0"),
 
@@ -38,7 +40,7 @@ const formSchema = z.object({
   
 });
 
-export default  function TutorCreateForm() {
+export default  function EditTutorProfilePage({tutor}: {tutor:Tutor}) {
 
     
     const [categories, setCategories] = useState<Array<{ id: string; name: string;description:string;created_at:string }>>([]);
@@ -66,23 +68,24 @@ export default  function TutorCreateForm() {
 
   const form = useForm({
     defaultValues: {
-      bio: "",
-      hourly_rate: "",
-      experienceYears: "",
-      education: "",
-      subjects: "",
-      languages: "",
-      categoryId: "",
+      name: tutor?.name || "",
+      bio: tutor?.bio || "",
+      hourly_rate: tutor?.hourlyRate?.toString() || "",
+      experienceYears: tutor?.experienceYears?.toString() || "",
+      education: tutor?.education || "",
+      subjects: tutor?.subjects?.join(",") || "",
+      languages: tutor?.languages?.join(",") || "",
+      categoryId: tutor?.categoryId || "",
       
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating profile...");
+      const toastId = toast.loading("Updating tutor profile...");
       try {
-        const res = await fetch(`${APP_URL}/api/tutor`, {
-          method: "POST",
+        const res = await fetch(`${APP_URL}/api/tutor/update-profile/${tutor?.id}`, {
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials:"include",
           body: JSON.stringify({
@@ -96,10 +99,11 @@ export default  function TutorCreateForm() {
         });
 
         const data = await res.json();
+        console.log(data);
         if (!res.ok) throw new Error(data.message || "Failed");
 
-        toast.success("Tutor profile created!", { id: toastId });
-        router.push("/");
+        toast.success("Tutor profile updated!", { id: toastId });
+        router.push("/tutors/dashboard/profile");
       } catch (err:any) {
         toast.error(err.message || "Something went wrong", { id: toastId });
       }
@@ -117,11 +121,9 @@ export default  function TutorCreateForm() {
   <CardHeader className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white p-8">
     <div className="text-center space-y-2">
       <CardTitle className="text-3xl font-bold tracking-tight">
-        Become a Tutor
+        Update your Tutor Profile
       </CardTitle>
-      <CardDescription className="text-indigo-100 text-base">
-        Share your expertise and connect with students worldwide
-      </CardDescription>
+      
     </div>
   </CardHeader>
 
@@ -141,6 +143,21 @@ export default  function TutorCreateForm() {
           </div>
           <h3 className="text-lg font-semibold text-gray-800">About You</h3>
         </div>
+
+        <form.Field name="name">
+          {(field) => (
+            <Field>
+              <FieldLabel className="text-gray-700 font-medium">Name</FieldLabel>
+              <Input
+                placeholder="e.g., Alex Johnson"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              />
+            </Field>
+          )}
+        </form.Field>
+
 
         {/* Bio */}
         <form.Field name="bio">
@@ -206,8 +223,8 @@ export default  function TutorCreateForm() {
                       <SelectValue placeholder="Select your teaching category" />
                     </SelectTrigger>
                     <SelectContent>
-                      {categories.map((c) => (
-                        <SelectItem key={c.id} value={c?.id}>
+                      {categories?.map((c) => (
+                        <SelectItem key={c?.id} value={c?.id}>
                           {c?.name}
                         </SelectItem>
                       ))}

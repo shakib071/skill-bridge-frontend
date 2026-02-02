@@ -1,11 +1,12 @@
+
 "use client";
+import EditTutorProfilePage from '@/components/modules/Tutor/EditTutorProfile';
+import { TutorCardSkeleton } from '@/components/modules/Tutor/LoadingSkeleton';
 import { useSessionContext } from '@/providers/SessionProvider';
 import { tutorService } from '@/services/tutor2.service';
-import React, { useEffect, useState } from 'react';
-import { TutorCardSkeleton } from '@/components/modules/Tutor/LoadingSkeleton';
-import TutorProfilePage2 from '@/components/modules/Tutor/TutorProfilePage2';
+import React, { useEffect, useState } from 'react'
 
-export default function Page() {
+export default  function Page() {
     const context = useSessionContext();
     const session = context?.session;
     const id = session?.user?.id;
@@ -17,6 +18,7 @@ export default function Page() {
             if (!id) return;
             const tutor = await tutorService.getTutorById(id);
             setTutor(tutor?.data?.data);
+            console.log(tutor);
             setLoading(false);
         }
         fetchTutor();
@@ -25,15 +27,15 @@ export default function Page() {
     if(loading){
         return <TutorCardSkeleton />;
     }
-    return (
+  return (
         <div>
             {
-                tutor ? <TutorProfilePage2 tutor={tutor} /> : 
+                tutor ? <EditTutorProfilePage tutor={tutor} /> : 
                 <div className='text-center'>
                     <h1 className="text-2xl font-bold mb-4">No Tutor Profile Found</h1>
                     <p>Please create your tutor profile to get started.</p>
                 </div>
             }
         </div>
-    )
+  )
 }

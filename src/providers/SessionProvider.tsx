@@ -26,14 +26,15 @@ export type Session = {
 export type SessionContextType = {
   session: Session | null;
   isPending: boolean;
+  refetch?: () => Promise<void>;
 };
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);;
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const { data: session, isPending } = authClient.useSession();
+  const { data: session, isPending,refetch } = authClient.useSession();
   return (
-    <SessionContext.Provider value={{ session, isPending }}>
+    <SessionContext.Provider value={{ session, isPending,refetch }}>
       {children}
     </SessionContext.Provider>
   );

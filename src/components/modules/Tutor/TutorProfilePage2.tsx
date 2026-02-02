@@ -8,7 +8,7 @@ import { Tutor } from "@/types/tutor.type";
 import Link from "next/link";
 
 
-export default  function TutorProfilePage({ tutor }: { tutor: Tutor }) {
+export default  function TutorProfilePage2({ tutor }: { tutor: Tutor }) {
 
     
    
@@ -62,7 +62,6 @@ export default  function TutorProfilePage({ tutor }: { tutor: Tutor }) {
               <p>{tutor?.bio}</p>
             </div>
           )}
-
           {tutor?.education && (
             <div>
               <h3 className="font-semibold text-lg mb-1">Education</h3>
@@ -110,8 +109,8 @@ export default  function TutorProfilePage({ tutor }: { tutor: Tutor }) {
               <p>{tutor?.totalReviews}</p>
             </div>
           </div>
-          <Link href={`/students/book-sessions/${tutor?.id}`} className="w-full">
-            <Button className="mt-6 w-full" size="lg">Book Session</Button>
+          <Link href={`/tutors/dashboard/edit-profile`} className="w-full">
+            <Button className="mt-6 w-full" size="lg">Edit Profile</Button>
           </Link>
           
         </CardContent>
