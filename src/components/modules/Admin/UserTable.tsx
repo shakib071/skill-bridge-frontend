@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 export function UsersTable({ users }: { users: User[] }) {
   const router = useRouter();
   const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
+  console.log(users);
   const handleBanUnban = async(user: User) => {
     let status = "ACTIVE";
     if (user?.status == "ACTIVE") {
@@ -67,6 +68,30 @@ export function UsersTable({ users }: { users: User[] }) {
 
   };
 
+  const handleFeatureTutor = async(tutorId:string,feature:boolean) => {
+    const toastId = toast.loading("updating feature tutor")
+      const result = await fetch(`${APP_URL}/api/tutor/update-isfeatured/${tutorId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache:"no-cache",
+        credentials: "include",
+        body: JSON.stringify({ isFeatured: feature }), 
+      });
+
+      const data = await result.json();
+      console.log(result);
+
+      if(!data?.success){
+        toast.error("Updating failed",{id:toastId});
+        return;
+      }
+
+      toast.success("Update Successfull",{id:toastId});
+      router.refresh();
+  }
+
   return (
     <div className="rounded-xl border shadow-sm bg-white">
       <Table>
@@ -107,14 +132,49 @@ export function UsersTable({ users }: { users: User[] }) {
               </TableCell>
 
               <TableCell className="text-right">
-                {user?.status == "ACTIVE" ? (
-                  <Button
-                    variant="destructive"
+                <div>
+   
+
+
+                {user?.status == "ACTIVE" && user?.role=="TUTOR" && user?.tutorProfile?.isFeatured  
+                  && (
+                    <Button
+                    variant="secondary"
                     size="sm"
-                    onClick={() => handleBanUnban(user)}
+                    onClick={() => handleFeatureTutor(user?.tutorProfile?.id as string,false)}
                   >
-                    Ban
+                    Remove from Feature Tutor
                   </Button>
+                  )
+                }
+
+                {user?.status == "ACTIVE" && user?.role=="TUTOR" && !user?.tutorProfile?.isFeatured 
+                  && (
+                    <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => handleFeatureTutor(user?.tutorProfile?.id as string,true)}
+                  >
+                    add to Feature Tutor
+                  </Button>
+                  )
+                }
+
+                {user?.status == "ACTIVE" ? (
+                  
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleBanUnban(user)}
+                    >
+                      Ban
+                    </Button>
+                    
+
+
+                  
+
+
                 ) : (
                   <Button
                     variant="secondary"
@@ -124,6 +184,10 @@ export function UsersTable({ users }: { users: User[] }) {
                     Unban
                   </Button>
                 )}
+
+                </div>
+
+
               </TableCell>
             </TableRow>
           ))}

@@ -15,4 +15,10 @@ export interface User {
 
   createdAt: string;
   updatedAt: string;
+
+  tutorProfile? :{
+    id?:string,
+    isFeatured?:string,
+  }
+
 }

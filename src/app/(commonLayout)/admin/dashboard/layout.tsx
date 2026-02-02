@@ -13,6 +13,7 @@ interface AdminDashboardLayoutProps {
 const navItems = [
   { name: "Home", href: "/admin/dashboard" },
   { name: "Users", href: "/admin/dashboard/users" },
+ 
   { name: "Bookings", href: "/admin/dashboard/bookings" },
   { name: "Categories", href: "/admin/dashboard/categories" },
   
