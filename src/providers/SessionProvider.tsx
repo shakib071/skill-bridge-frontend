@@ -8,11 +8,14 @@ import { createContext, useContext } from "react";
 //     session:Session
 // }
 
+
+
 export type User = {
     id: string;
     name: string;
     email: string;
     image?: string | null;
+    role?:"STUDENT" | "TUTOR" | "ADMIN";
     createdAt?: Date;
     updatedAt?: Date;
     emailVerified?: boolean;

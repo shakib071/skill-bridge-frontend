@@ -46,7 +46,7 @@ export default function UpdateUserForm() {
   const form = useForm({
     defaultValues: {
       name: session?.user?.name || "",
-      role: session?.user?.role || "STUDENT",
+      role: session?.user?.role,
     },
     validators:{
         onSubmit:formSchema,
@@ -75,7 +75,8 @@ export default function UpdateUserForm() {
         router.push("/profile");
 
       } catch (err) {
-        toast.error(err.message || "Something went wrong");
+        const errorMessage = err instanceof Error ? err.message : "Something went wrong";
+        toast.error(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -118,7 +119,7 @@ export default function UpdateUserForm() {
             {(field) => (
               <Field>
                 <FieldLabel>Role</FieldLabel>
-                <Select value={field.state.value} onValueChange={field.handleChange}>
+                <Select value={field.state.value} onValueChange={(value:any) => field.handleChange(value)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select role" />
                   </SelectTrigger>

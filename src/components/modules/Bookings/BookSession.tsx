@@ -160,7 +160,7 @@ console.log({duration,totalPrice});
             return (
               <>
                 <FieldLabel>Time Slot</FieldLabel>
-                <Select value={field.state.value}  onValueChange={(val) =>{
+                <Select value={field.state.value}  onValueChange={(val:any) =>{
                     field.setValue(val);
                     setSelectedSlot(val);
                 } }>

@@ -62,7 +62,7 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
       setDescription("");
       router.refresh();
     } catch (err) {
-      toast.error(err.message || "Something went wrong");
+      toast.error((err as Error).message || "Something went wrong");
     } finally {
       setLoading(false);
     }

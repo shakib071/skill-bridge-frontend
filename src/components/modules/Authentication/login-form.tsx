@@ -35,7 +35,8 @@ export function LoginForm({
   const handleGoogleLogin = async() => {
     const data = authClient.signIn.social({
       provider:"google",
-      callbackURL: process.env.NEXT_PUBLIC_CLIENT_URL as string
+      callbackURL:window.location.origin,
+     
     });
     console.log(data);
   };

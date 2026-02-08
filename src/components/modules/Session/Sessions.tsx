@@ -93,7 +93,8 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
 
       }
       catch(e){
-        toast.error(e.message||"Status Updation Failed",{ id: toastId});
+        const errorMessage = e instanceof Error ? e.message : "Status Updation Failed";
+        toast.error(errorMessage,{ id: toastId});
       }
   }
     
@@ -101,7 +102,7 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
     if(!session && pending){
       return <TutorCardSkeleton />;
     }
-    // @ts-expect-error: Assume user has a 'role' property
+    
     const role = session?.user?.role;
     // console.log("User Role in Sessions Table:",role);
   return (
