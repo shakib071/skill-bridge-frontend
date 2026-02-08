@@ -79,7 +79,7 @@ export function LoginForm({
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome to SkillBridge</CardTitle>
           <CardDescription>
-            Login with your  Google account
+            Login with your  Email and Password
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -90,7 +90,7 @@ export function LoginForm({
           }}
           >
             <FieldGroup>
-              <Field>
+              {/* <Field>
                 
                 <Button onClick={()=>handleGoogleLogin()} variant="outline" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ export function LoginForm({
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
-              </FieldSeparator>
+              </FieldSeparator> */}
        
 
               <form.Field
@@ -117,7 +117,7 @@ export function LoginForm({
 
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Email</FieldLabel>
 
                     <Input
                       type="text"

@@ -1,7 +1,8 @@
-import React from 'react'
+import TutorOverviewStats from "@/components/modules/Tutor/Home";
+
 
 export default function page() {
   return (
-    <div>Tutor dashboard page</div>
+    <TutorOverviewStats></TutorOverviewStats>
   )
 }

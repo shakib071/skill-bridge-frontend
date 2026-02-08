@@ -54,10 +54,7 @@ interface Navbar1Props {
   studentMenu?: MenuItem[];
   adminMenu?: MenuItem[];
   auth?: {
-    createTutor: {
-      title: string;
-      url: string;
-    };
+   
     login: {
       title: string;
       url: string;
@@ -100,6 +97,7 @@ const Navbar = ({
   ],
 
   tutorMenu = [
+    
     {
       title: "Activities",
       url: "#",
@@ -150,7 +148,7 @@ const Navbar = ({
 
 
   auth = {
-    createTutor: {title: "Create Tutor Profile",url:"/create-tutor-profile"},
+  
     login: { title: "Login", url: "/login" },
     signup: { title: "Register", url: "/register" },
     profile: {title: "Profile", url: "/profile" },
@@ -221,11 +219,7 @@ const Navbar = ({
                 </Button>
               </>) : (
                 <>
-                  {session?.user.role === "TUTOR"  &&  (
-                    <Button asChild size="sm">
-                      <a href={auth.createTutor.url}>{auth.createTutor.title}</a>
-                    </Button>
-                  )}
+                  
                   <Button asChild size="sm">
                   <a href={auth.profile.url}>{auth.profile.title}</a>
                   </Button>

@@ -232,9 +232,9 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
             <FieldGroup>
               <Field>
                 <Button type="submit">Register</Button>
-                <Button onClick={()=> handleGoogleLogin()} variant="outline" type="button">
+                {/* <Button onClick={()=> handleGoogleLogin()} variant="outline" type="button">
                   Login with Google
-                </Button>
+                </Button> */}
                 <FieldDescription className="px-6 text-center">
                   Already have an account? <a href="/login">Log in</a>
                 </FieldDescription>

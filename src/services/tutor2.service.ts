@@ -22,5 +22,24 @@ export const tutorService = {
             return { data: null, error: { message: "Something Went Wrong" }};
         }
     },
+
+    getOverview: async function () {
+        try{
+            
+            const result = await fetch(`${APP_URL}/api/tutor/overview`,{
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        
+                    }
+                });
+            const data = await result.json();
+            return {data:data,error:null};
+        }
+        catch(e){
+            return { data: null, error: { message: "Something Went Wrong" }}
+        }
+    },
    
 }
