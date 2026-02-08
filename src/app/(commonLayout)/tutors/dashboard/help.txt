@@ -1,3 +1,0 @@
-/tutor/dashboard        → stats, overview
-/tutor/bookings         → upcoming & past sessions
-/tutor/profile          → edit tutor profile
