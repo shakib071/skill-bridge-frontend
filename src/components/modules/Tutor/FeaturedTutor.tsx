@@ -16,7 +16,7 @@ export function Tutors({title, tutors }: TutorsProps) {
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {tutors.map((tutor) => (
+          {tutors?.map((tutor) => (
             <TutorCard key={tutor.id} tutor={tutor} />
           ))}
         </div>

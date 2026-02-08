@@ -4,11 +4,11 @@ import { BookingsTable } from '@/components/modules/Admin/BookingsTable';
 export default async function Page() {
 
   const result = await bookingsService.getAllBookings();
-  console.log(result?.data?.data);
+  // console.log(result?.data?.data);
 
   return (
      <div>
-        <p>Hello</p>
+        
         {
           result?.data?.data && result?.data?.data?.length > 0 ? (
              <BookingsTable bookings={result?.data?.data}/>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useSessionContext } from "@/providers/SessionProvider";
 import Link from "next/link";
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
+import { useRouter } from "next/navigation";
 
 
 
@@ -18,9 +19,12 @@ export  function ProfileCard() {
     
   const context = useSessionContext();
   const session = context?.session;
-  console.log(session?.user);
+  const isPending = context?.isPending;
+  const router = useRouter();
+ 
 
   const user = session?.user;
+  
   
   const dateString = "Sat Jan 31 2026 07:42:30 GMT+0600 (Bangladesh Standard Time)";
 
@@ -34,14 +38,18 @@ export  function ProfileCard() {
     });
 
 
-    if(!session){
+    if(!isPending){
       return <TutorCardSkeleton />;
     }
+
+   
 
 
 
   return (
+    
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-1">
+      
       <Card className="w-full max-w-md shadow-2xl rounded-xl overflow-hidden border border-gray-200">
         <CardHeader className="flex flex-col items-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white p-8">
           <Avatar className="w-24 h-24 mb-4">

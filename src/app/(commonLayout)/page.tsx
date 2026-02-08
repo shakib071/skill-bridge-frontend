@@ -45,17 +45,19 @@ export default function Home() {
       <div className="w-[90%] mx-auto">
         <HeroSection></HeroSection>
         {
-          loading ? (
-            <div className="py-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <TutorCardSkeleton key={i} />
-              ))}
-            </div>
-          ):
-          (
-            <Tutors title="Featured Tutors" tutors={tutors}></Tutors>
-          )
-        }
+        loading ? (
+          <div className="py-20 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <TutorCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : tutors && tutors.length > 0 ? (
+          <Tutors title="Featured Tutors" tutors={tutors} />
+        ) : (
+          <p className="text-center py-10 text-gray-500">No Featured Tutors</p>
+        )
+}
+
         
         
       </div>
