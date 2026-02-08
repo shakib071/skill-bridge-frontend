@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function HeroSection() {
   return (
@@ -18,12 +19,13 @@ export function HeroSection() {
         </p>
 
         <div className="flex justify-center gap-4 mb-16">
-          <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 text-white">
-            Get Started
-          </Button>
-          <Button size="lg" variant="outline" className="border-indigo-600 text-indigo-600 hover:bg-indigo-50">
-            Browse Tutors
-          </Button>
+          
+          <Link href="/tutors">
+            <Button size="lg" variant="outline" className="border-indigo-600 text-indigo-600 hover:bg-indigo-50">
+              Browse Tutors
+            </Button>
+          </Link>
+
         </div>
 
      

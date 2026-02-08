@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { AlertCircle } from "lucide-react"
 
-export default function NotFound() {
+export default function Notfound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 text-center">
       <div className="p-8 bg-white rounded-2xl shadow-lg max-w-md w-full">
