@@ -23,6 +23,7 @@ import { useSessionContext } from "@/providers/SessionProvider";
 import * as z from "zod";
 import  { useRouter } from "next/navigation";
 import { TutorCardSkeleton } from "@/components/modules/Tutor/LoadingSkeleton";
+import { updateUserData } from "@/services/action.service";
 
 
 const formSchema = z.object({
@@ -55,21 +56,24 @@ export default function UpdateUserForm() {
       if (!session) return;
 
       setLoading(true);
+      const toastId = toast("Updating Profile");
       try {
-        const res = await fetch(`${APP_URL}/api/user`, {
-          method: "PUT",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(value),
-        });
+        // const res = await fetch(`${APP_URL}/api/user`, {
+        //   method: "PUT",
+        //   credentials: "include",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify(value),
+        // });
 
-        const data = await res.json();
-        if(!res?.ok){
-            toast.error(data?.message || "Failed to update user");
+        // const data = await res.json();
+        const result = await updateUserData(value);
+        console.log(result);
+        if(!result?.data?.success){
+            toast.error(result?.data?.message || "Failed to update user",{id:toastId});
             return;
         }
 
-        toast.success("User updated successfully!");
+        toast.success("User updated successfully!",{id:toastId});
 
         await context?.refetch?.();
         router.push("/profile");

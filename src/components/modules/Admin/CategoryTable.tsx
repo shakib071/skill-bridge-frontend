@@ -23,6 +23,9 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
+import { postCategory } from "@/services/action.service";
+
+
 
 export interface Category {
   id: string;
@@ -38,7 +41,7 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+
 
   const handleCreate = async () => {
     
@@ -46,21 +49,29 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
       toast.error("Please fill all fields");
       return;
     }
+    
     setLoading(true);
     try {
-      const res = await fetch(`${APP_URL}/api/category`, {
-        method: "POST",
-        credentials:'include',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, description }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to create category");
+      // const res = await fetch(`${APP_URL}/api/category`, {
+      //   method: "POST",
+      //   credentials:'include',
+      //   headers: { 
+      //     "Content-Type": "application/json" 
+          
+      //   },
+      //   body: JSON.stringify({ name, description }),
+      // });
+      // const data = await res.json();
+      console.log(name,description);
+      const data = await postCategory(name,description);
+      console.log(data);
+      if (!data?.data?.success) throw new Error(data?.data?.message || "Failed to create category");
       toast.success("Category created!");
       setOpen(false);
       setName("");
       setDescription("");
       router.refresh();
+      
     } catch (err) {
       toast.error((err as Error).message || "Something went wrong");
     } finally {
@@ -76,7 +87,7 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
 
   return (
     <div className="space-y-4">
-      {/* Create New Category Button */}
+      
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="bg-indigo-600 text-white hover:bg-indigo-700">+ Create Category</Button>

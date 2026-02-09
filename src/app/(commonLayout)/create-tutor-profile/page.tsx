@@ -15,6 +15,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { useEffect, useState } from "react";
 import { categoryService } from "@/services/category.service";
 import { TutorCardSkeleton } from "@/components/modules/Tutor/LoadingSkeleton";
+import { createTutorProfile } from "@/services/action.service";
 
 
 
@@ -81,22 +82,23 @@ export default  function TutorCreateForm() {
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating profile...");
       try {
-        const res = await fetch(`${APP_URL}/api/tutor`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials:"include",
-          body: JSON.stringify({
-            ...value,
-            hourly_rate: Number(value.hourly_rate),
-            experienceYears: Number(value.experienceYears),
-            subjects: value.subjects ? value.subjects.split(",").map((s) => s.trim()) : [],
-            languages: value.languages ? value.languages.split(",").map((l) => l.trim()) : [],
+        // const res = await fetch(`${APP_URL}/api/tutor`, {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   credentials:"include",
+        //   body: JSON.stringify({
+        //     ...value,
+        //     hourly_rate: Number(value.hourly_rate),
+        //     experienceYears: Number(value.experienceYears),
+        //     subjects: value.subjects ? value.subjects.split(",").map((s) => s.trim()) : [],
+        //     languages: value.languages ? value.languages.split(",").map((l) => l.trim()) : [],
             
-          }),
-        });
+        //   }),
+        // });
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Failed");
+        // const data = await res.json();
+        const result = await createTutorProfile(value);
+        if (!result?.data?.success) throw new Error(result?.data?.message || "Failed");
 
         toast.success("Tutor profile created!", { id: toastId });
         router.push("/");

@@ -13,14 +13,16 @@ import { Badge } from "@/components/ui/badge";
 import { User } from "@/types/user.type";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { changeFeatureStatus, handleBan } from "@/services/action.service";
 // import { useEffect } from "react";
 // import { userService } from "@/services/user.service";
 
 
 export function UsersTable({ users }: { users: User[] }) {
   const router = useRouter();
-  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
+  
   console.log(users);
+
   const handleBanUnban = async(user: User) => {
     let status = "ACTIVE";
     if (user?.status == "ACTIVE") {
@@ -30,21 +32,23 @@ export function UsersTable({ users }: { users: User[] }) {
 
     try{
       const toastId = toast.loading("Updating status");
-      const result = await fetch(`${APP_URL}/api/user/update-user-status/${user?.id}`,
-        {
-            method: "PATCH",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-                // Cookie: cookieStore.toString(),
-            },
-            body: JSON.stringify({status:status})
-        }
-      );
+      // const result = await fetch(`${APP_URL}/api/user/update-user-status/${user?.id}`,
+      //   {
+      //       method: "PATCH",
+      //       credentials: "include",
+      //       headers: {
+      //           "Content-Type": "application/json",
+      //           // Cookie: cookieStore.toString(),
+      //       },
+      //       body: JSON.stringify({status:status})
+      //   }
+      // );
 
-      const data = await result.json();
+      // const data = await result.json();
 
-      if(!data?.success){
+      const result = await handleBan(user?.id,status);
+
+      if(!result?.data?.success){
         toast.error("Updating failed",{id:toastId});
         return;
       }
@@ -70,20 +74,23 @@ export function UsersTable({ users }: { users: User[] }) {
 
   const handleFeatureTutor = async(tutorId:string,feature:boolean) => {
     const toastId = toast.loading("updating feature tutor")
-      const result = await fetch(`${APP_URL}/api/tutor/update-isfeatured/${tutorId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache:"no-cache",
-        credentials: "include",
-        body: JSON.stringify({ isFeatured: feature }), 
-      });
+      // const result = await fetch(`${APP_URL}/api/tutor/update-isfeatured/${tutorId}`, {
+      //   method: "PATCH",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   cache:"no-cache",
+      //   credentials: "include",
+      //   body: JSON.stringify({ isFeatured: feature }), 
+      // });
 
-      const data = await result.json();
+      // const data = await result.json();
+      // console.log(result);
+      console.log({tutorId,feature});
+      const result = await changeFeatureStatus(tutorId,feature);
       console.log(result);
 
-      if(!data?.success){
+      if(!result?.data?.success){
         toast.error("Updating failed",{id:toastId});
         return;
       }
@@ -136,7 +143,7 @@ export function UsersTable({ users }: { users: User[] }) {
    
 
 
-                {user?.status == "ACTIVE" && user?.role=="TUTOR" && user?.tutorProfile?.isFeatured  
+                {user?.status == "ACTIVE" && user?.role=="TUTOR" && user?.tutorProfile?.isFeatured!=null && user?.tutorProfile?.isFeatured  
                   && (
                     <Button
                     variant="secondary"
@@ -148,7 +155,7 @@ export function UsersTable({ users }: { users: User[] }) {
                   )
                 }
 
-                {user?.status == "ACTIVE" && user?.role=="TUTOR" && !user?.tutorProfile?.isFeatured 
+                {user?.status == "ACTIVE" && user?.role=="TUTOR" && user?.tutorProfile?.isFeatured!=null &&  !user?.tutorProfile?.isFeatured 
                   && (
                     <Button
                     variant="secondary"

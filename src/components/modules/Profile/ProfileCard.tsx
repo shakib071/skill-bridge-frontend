@@ -20,10 +20,11 @@ export  function ProfileCard() {
   const context = useSessionContext();
   const session = context?.session;
   const isPending = context?.isPending;
-  const router = useRouter();
+  
  
 
   const user = session?.user;
+  console.log(user);
   
   
   const dateString = "Sat Jan 31 2026 07:42:30 GMT+0600 (Bangladesh Standard Time)";
@@ -38,7 +39,7 @@ export  function ProfileCard() {
     });
 
 
-    if(!isPending){
+    if(isPending){
       return <TutorCardSkeleton />;
     }
 
