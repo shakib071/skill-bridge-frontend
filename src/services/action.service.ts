@@ -338,7 +338,7 @@ export async function getUserOverView() {
 
             const data = await result.json();
             // console.log(data);
-            revalidatePath('/students/dashboard/sessions');
+            revalidatePath('/students/dashboard');
             return {data:data,error:null};
         }
         catch(e){
@@ -380,5 +380,29 @@ export async function updateTutorProfile(tutor:Record<string,any>,value:Record<s
             return { data: null, error: { message: "Something Went Wrong" }}
         }
 }
+
+export async function getTutorOverview () {
+
+        try{
+             const cookieStore = await cookies();
+            const result = await fetch(`${APP_URL}/api/tutor/overview`,{
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Cookie: cookieStore.toString(),
+                        
+                    }
+                });
+            const data = await result.json();
+            return {data:data,error:null};
+        }
+        catch(e){
+            return { data: null, error: { message: "Something Went Wrong" }}
+        }
+    
+   
+}
+
 
 

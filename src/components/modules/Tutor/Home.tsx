@@ -3,7 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, CheckCircle, Users } from "lucide-react"
 import { TutorCardSkeleton } from "./LoadingSkeleton";
 import { useEffect, useState } from "react";
-import { tutorService } from "@/services/tutor2.service";
+import { getTutorOverview } from "@/services/action.service";
+
+
 
 interface tutorOverview {
     upcomingSessions:string|number,
@@ -19,7 +21,7 @@ export default function TutorOverviewStats() {
         useEffect(() => {
             async function fetchOverview() {
                 
-                const data = await tutorService.getOverview();
+                const data = await getTutorOverview();
                 setData(data?.data?.data);
                 setLoading(false);
             }

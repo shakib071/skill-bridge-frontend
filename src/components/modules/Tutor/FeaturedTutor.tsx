@@ -19,6 +19,15 @@ export function Tutors({title, tutors }: TutorsProps) {
           {tutors?.map((tutor) => (
             <TutorCard key={tutor.id} tutor={tutor} />
           ))}
+          
+        </div>
+
+        <div>
+          {
+            !tutors || tutors?.length==0 && (
+              <p className="text-center font-bold text-3xl mt-5">No tutor Available</p>
+            )
+          }
         </div>
       </div>
     </section>

@@ -37,11 +37,12 @@ export default function StudentOverviewStats() {
                 // const data = await result.json();
                 const result = await getUserOverView();
                 const data = result?.data;
-                setData(data?.data?.data);
+                setData(data?.data);
                 setLoading(false);
+                console.log({result,data});
             }
             fetchOverview();
-        }, [data])
+        }, [])
         
 
 

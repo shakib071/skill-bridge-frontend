@@ -120,12 +120,7 @@ const Navbar = ({
           icon: <Trees className="size-5 shrink-0" />,
           url: "/tutors/create-availability",
         },
-        {
-          title: "Profile",
-          description: "View and manage your tutor profile",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "/tutors/profile",
-        },
+        
       ],
     },
   ],

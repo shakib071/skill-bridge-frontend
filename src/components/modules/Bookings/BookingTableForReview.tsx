@@ -87,7 +87,7 @@ export default function BookingsTable({ bookings }: BookingsTableProps) {
         return;
       }
 
-      toast.success("Review submitted!");
+      toast.success("Review submitted!",{id:toastId});
       router.refresh();
       setSelectedBooking(null);
       setComment("");

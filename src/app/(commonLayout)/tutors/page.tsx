@@ -21,12 +21,13 @@ export default function TutorPage() {
     const handleSearch =() => {
       console.log(search,ratingSort,priceSort);
 
-      
-      const filteredTutors = tutors
-        .filter((tutor) => {
-          if(search==""){
-            setTutors(tutors1);
-          }
+      if(search==""){
+          setTutors(tutors1);
+          return;
+      }
+      const tutorData = tutors1;
+      const filteredTutors = tutorData.filter((tutor) => {
+          
           const searchLower = search.toLowerCase();
           
           const nameMatch = tutor?.name?.toLowerCase().includes(searchLower);
@@ -53,16 +54,16 @@ export default function TutorPage() {
 
     useEffect(() => {
     
-    fetch(`${APP_URL}/api/tutor`,{
-        cache:"no-store",
-    })
-        .then(res => res.json())
-        .then(data => {
-        setTutors(data.data);
-        setTutors1(data.data);
-        // console.log(data?.data);
-        setLoading(false);
-        });
+      fetch(`${APP_URL}/api/tutor`,{
+          cache:"no-store",
+      })
+          .then(res => res.json())
+          .then(data => {
+          setTutors(data.data);
+          setTutors1(data.data);
+          // console.log(data?.data);
+          setLoading(false);
+          });
     }, [APP_URL]);
 
   return (
