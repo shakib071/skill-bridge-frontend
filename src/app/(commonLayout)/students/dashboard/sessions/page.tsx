@@ -1,6 +1,6 @@
 import SessionsTable from '@/components/modules/Session/Sessions';
 import { bookingsService } from '@/services/bookings.service'
-import React from 'react'
+
 
 export default async function SessionsPage() {
   const {data} = await bookingsService.getAllSession();

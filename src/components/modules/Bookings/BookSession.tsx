@@ -19,6 +19,7 @@ import { Tutor } from "@/types/tutor.type";
 import { Availability } from "@/types/availability.type";
 import { useSessionContext } from "@/providers/SessionProvider";
 import { useRouter } from "next/navigation";
+import { createBooking } from "@/services/action.service";
 
 
 
@@ -45,7 +46,7 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
   const router = useRouter();
   
   const session = sessionContext?.session;
-  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
     console.log({tutor,availability});
   const form = useForm({
     defaultValues: {
@@ -63,27 +64,29 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
         const slot = availability.find((s) => s.id === value.slotId);
         if (!slot) throw new Error("Slot not found");
 
-        const start = new Date(slot.startTime).getTime();
-        const end = new Date(slot.endTime).getTime();
-        const hours = (end - start) / (1000 * 60 * 60);
+        // const start = new Date(slot.startTime).getTime();
+        // const end = new Date(slot.endTime).getTime();
+        // const hours = (end - start) / (1000 * 60 * 60);
 
-        const res = await fetch(`${APP_URL}/api/booking`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            userId: session?.user?.id,
-            availabilityId: slot.id,
-            tutorId : tutor.id,
-            start_time: slot.startTime,
-            end_time: slot.endTime,
-            duration: Number(hours),
-            total_price: Number(hours) * Number(tutor.hourlyRate),
-          }),
-        });
+        // const res = await fetch(`${APP_URL}/api/booking`, {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   credentials: "include",
+        //   body: JSON.stringify({
+        //     userId: session?.user?.id,
+        //     availabilityId: slot.id,
+        //     tutorId : tutor.id,
+        //     start_time: slot.startTime,
+        //     end_time: slot.endTime,
+        //     duration: Number(hours),
+        //     total_price: Number(hours) * Number(tutor.hourlyRate),
+        //   }),
+        // });
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Booking failed");
+        // const data = await res.json();
+        const result = await createBooking(slot,session?.user?.id as string,tutor);
+        const data = result?.data;
+        if (!data?.success) throw new Error(data.message || "Booking failed");
 
         toast.success("Session booked successfully!", { id: toastId });
         router.push("/students/dashboard/sessions");

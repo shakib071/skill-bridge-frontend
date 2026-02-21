@@ -7,6 +7,7 @@ import { useSessionContext } from "@/providers/SessionProvider";
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { cancelUpdateBookingStatus, updateBookingStatus} from "@/services/action.service";
 // import { useRouter } from "next/router";
 
 interface Session {
@@ -37,19 +38,21 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
     const pending = context?.isPending;
     // console.log({sessions});
     const router = useRouter();
-    const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+    // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
     const handleCompletedORAttend = async(id:string) => {
         const toastId = toast.loading("Updating Status");
         try{
-          const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
-            method: "PATCH",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({status: "COMPLETED"})
-          });
+          // const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
+          //   method: "PATCH",
+          //   credentials: "include",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify({status: "COMPLETED"})
+          // });
 
-          const data = await res.json();
+          // const data = await res.json();
+          const result = await updateBookingStatus(id);
+          const data = result?.data;
 
           if(!data.success){
             toast.error("Status Updation Failed",{ id: toastId});
@@ -71,14 +74,17 @@ export default function SessionsTable({ sessions }: SessionsTableProps) {
       const cancelBookingStatus = async(id:string) => {
       const toastId = toast.loading("Canceling Status");
       try{
-        const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
-          method: "PATCH",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({status: "CANCELLED"})
-        });
+        // const res = await fetch(`${APP_URL}/api/booking/update-booking-status/${id}`, {
+        //   method: "PATCH",
+        //   credentials: "include",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify({status: "CANCELLED"})
+        // });
 
-        const data = await res.json();
+        // const data = await res.json();
+        const result = await cancelUpdateBookingStatus(id);
+        const data = result?.data;
+        
 
         if(!data.success){
           toast.error("Status Cancelation Failed",{ id: toastId});

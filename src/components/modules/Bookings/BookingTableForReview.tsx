@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
+import { createTutorReview } from "@/services/action.service";
 
 export type Booking = {
   id: string;
@@ -52,7 +53,7 @@ export default function BookingsTable({ bookings }: BookingsTableProps) {
   const [comment, setComment] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
   const handleSubmitReview = async () => {
     if (!selectedBooking) return;
@@ -67,20 +68,21 @@ export default function BookingsTable({ bookings }: BookingsTableProps) {
 
     setLoading(true);
     try {
-      const res = await fetch(`${APP_URL}/api/review/create`, {
-        method: "POST",
-        credentials:"include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          bookingId: selectedBooking.id,
-          rating,
-          comment,
-        }),
-      });
+      // const res = await fetch(`${APP_URL}/api/review/create`, {
+      //   method: "POST",
+      //   credentials:"include",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     bookingId: selectedBooking.id,
+      //     rating,
+      //     comment,
+      //   }),
+      // });
 
-      const data = await res.json();
-
-      if (!res.ok) {
+      // const data = await res.json();
+      const result = await createTutorReview(selectedBooking.id,rating,comment);
+      const data = result?.data;
+      if (!data?.success) {
         toast.error(data?.message || "Failed to create review",{id:toastId});
         return;
       }

@@ -5,8 +5,9 @@ import { Calendar, CheckCircle, Users } from "lucide-react"
 import { useEffect, useState } from "react";
 
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
+import { getUserOverView } from "@/services/action.service";
 
-const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
+// const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 interface StudentOverview {
    
     upcomingSessions:string|number,
@@ -23,17 +24,19 @@ export default function StudentOverviewStats() {
         useEffect(() => {
             async function fetchOverview() {
                 
-                const result = await fetch(`${APP_URL}/api/user/overview`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
+                // const result = await fetch(`${APP_URL}/api/user/overview`,
+                // {
+                //     method: "GET",
+                //     credentials: "include",
+                //     headers: {
+                //         "Content-Type": "application/json",
                        
-                    }
-                    }
-                );
-                const data = await result.json();
+                //     }
+                //     }
+                // );
+                // const data = await result.json();
+                const result = await getUserOverView();
+                const data = result?.data;
                 setData(data?.data?.data);
                 setLoading(false);
             }

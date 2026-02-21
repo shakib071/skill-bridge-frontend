@@ -1,10 +1,11 @@
 "use client";
 import { useSessionContext } from '@/providers/SessionProvider';
-import { tutorService } from '@/services/tutor2.service';
+// import { tutorService } from '@/services/tutor2.service';
 import React, { useEffect, useState } from 'react';
 import { TutorCardSkeleton } from '@/components/modules/Tutor/LoadingSkeleton';
 import TutorProfilePage2 from '@/components/modules/Tutor/TutorProfilePage2';
 import ReviewList from '@/components/modules/Tutor/ReviewList';
+import { getTutorById, getTutorReviewsById } from '@/services/action.service';
 
 export default function Page() {
     const context = useSessionContext();
@@ -20,19 +21,21 @@ export default function Page() {
     useEffect(() => {
         async function fetchTutor() {
             if (!id) return;
-            const tutor = await tutorService.getTutorById(id);
+            const tutor = await getTutorById(id);
             
             setTutor(tutor?.data?.data);
             console.log(tutor?.data?.data);
             if(tutor?.data?.data?.id){
-                const result = await fetch(`${APP_URL}/api/review/get-reviews/${tutor?.data?.data?.id}`,{
-                    method: "GET",
-                    credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    }
-                });
-                const reviews = await result.json();
+                // const result = await fetch(`${APP_URL}/api/review/get-reviews/${tutor?.data?.data?.id}`,{
+                //     method: "GET",
+                //     credentials: "include",
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     }
+                // });
+                // const reviews = await result.json();
+                const reviewsRes = await getTutorReviewsById(tutor?.data?.data?.id);
+                const reviews = reviewsRes?.data;
                 // console.log(reviews?.data);
                 setReview(reviews?.data);
             }

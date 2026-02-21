@@ -3,7 +3,8 @@
 import EditTutorProfilePage from '@/components/modules/Tutor/EditTutorProfile';
 import { TutorCardSkeleton } from '@/components/modules/Tutor/LoadingSkeleton';
 import { useSessionContext } from '@/providers/SessionProvider';
-import { tutorService } from '@/services/tutor2.service';
+import { getTutorById } from '@/services/action.service';
+// import { tutorService } from '@/services/tutor2.service';
 import React, { useEffect, useState } from 'react'
 
 export default  function Page() {
@@ -16,7 +17,7 @@ export default  function Page() {
     useEffect(() => {
         async function fetchTutor() {
             if (!id) return;
-            const tutor = await tutorService.getTutorById(id);
+            const tutor = await getTutorById(id);
             setTutor(tutor?.data?.data);
             console.log(tutor);
             setLoading(false);
