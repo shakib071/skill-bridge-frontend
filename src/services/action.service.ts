@@ -124,4 +124,34 @@ export async function updateUserData(value:{name:string,role: "STUDENT" | "TUTOR
         }
 }
 
+export async function createAvailability(value:Record<string,string>) {
+        try{
+            const cookieStore = await cookies();
+            const today = new Date().toISOString().split('T')[0];
+            const result = await fetch(`${APP_URL}/api/availability`, {
+                method: "POST",
+                credentials:"include",
+                headers: { 
+                    "Content-Type": "application/json" ,
+                    Cookie: cookieStore.toString(),
+                },
+            
+                        
+                body: JSON.stringify({
+                    day: value.day,
+                    startTime: new Date(`${today}T${value.startTime}:00`),
+                    endTime: new Date(`${today}T${value.endTime}:00`),
+                }),
+            });
+
+            const data = await result.json();
+            // console.log(data);
+            revalidatePath('/tutors/dashboard/availability');
+            return {data:data,error:null};
+        }
+        catch(e){
+            return { data: null, error: { message: "Something Went Wrong" }}
+        }
+}
+
 

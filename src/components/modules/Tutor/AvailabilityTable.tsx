@@ -1,9 +1,10 @@
 "use client";
+import {  format, parseISO } from "date-fns";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+// import { Button } from "@/components/ui/button";
+// import { format } from "date-fns";
 import { Availability } from "@/types/availability.type";
 import { toast } from "sonner";
 
@@ -63,8 +64,11 @@ export default  function AvailabilityTable({ data}: AvailabilityTableProps) {
             <TableRow key={slot.id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{slot.day}</TableCell>
-              <TableCell>{format(new Date(slot.startTime), "hh:mm a")}</TableCell>
-              <TableCell>{format(new Date(slot.endTime), "hh:mm a")}</TableCell>
+              {/* <TableCell>{format(new Date(slot.startTime), "hh:mm a")}</TableCell>
+              <TableCell>{format(new Date(slot.endTime), "hh:mm a")}</TableCell> */}
+
+              <TableCell>{format(parseISO(slot.startTime.replace('Z', '')), "hh:mm a")}</TableCell>
+              <TableCell>{format(parseISO(slot.endTime.replace('Z', '')), "hh:mm a")}</TableCell>
               <TableCell>
                 <Badge variant={slot.isBooked ? "destructive" : "secondary"}>
                   {slot.isBooked ? "Booked" : "Available"}

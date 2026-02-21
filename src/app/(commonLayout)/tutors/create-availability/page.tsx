@@ -25,6 +25,7 @@ import {
   FieldError,
 } from "@/components/ui/field";
 import { useRouter } from "next/navigation";
+import { createAvailability } from "@/services/action.service";
 
 const DAYS = [
   "MONDAY",
@@ -62,20 +63,25 @@ export default function AvailabilityCreateForm() {
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Creating slot...");
       try {
-        const today = new Date().toISOString().split('T')[0];
-        const res = await fetch("http://localhost:5000/api/availability", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-          body: JSON.stringify({
-            day: value.day,
-            startTime: new Date(`${today}T${value.startTime}:00`),
-            endTime: new Date(`${today}T${value.endTime}:00`),
-          }),
-        });
+        // const today = new Date().toISOString().split('T')[0];
+        // const res = await fetch("http://localhost:5000/api/availability", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   credentials: "include",
+        //   body: JSON.stringify({
+        //     day: value.day,
+        //     startTime: new Date(`${today}T${value.startTime}:00`),
+        //     endTime: new Date(`${today}T${value.endTime}:00`),
+        //   }),
+        // });
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message);
+        // const data = await res.json();
+        const result = await createAvailability(value);
+        const data = result?.data;
+        if (!result?.data?.success){
+          throw new Error(data?.message|| "Availability slot creation failed");
+          
+        }
 
         toast.success("Availability slot created", { id: toastId });
         form.reset();

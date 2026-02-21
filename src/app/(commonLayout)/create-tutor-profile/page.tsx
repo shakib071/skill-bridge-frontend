@@ -63,7 +63,7 @@ export default  function TutorCreateForm() {
 
 //   const categories = ["Mathematics", "Physics", "Chemistry", "Biology"];
   const router = useRouter();
-  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
+  // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 
   const form = useForm({
     defaultValues: {
