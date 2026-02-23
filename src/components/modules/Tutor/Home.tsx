@@ -3,7 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, CheckCircle, Users } from "lucide-react"
 import { TutorCardSkeleton } from "./LoadingSkeleton";
 import { useEffect, useState } from "react";
-import { getTutorOverview } from "@/services/action.service";
+// import { getTutorOverview } from "@/services/action.service";
+import { useSessionContext } from "@/providers/SessionProvider";
+// import { da } from "zod/v4/locales";
 
 
 
@@ -17,16 +19,35 @@ export default function TutorOverviewStats() {
  
         const [data, setData] = useState<tutorOverview | null>(null);
         const [loading, setLoading] = useState(true);
+        const context =  useSessionContext();
+          const session = context?.session;
+          const id = session?.user?.id;
+          console.log(id);
+          const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
     
         useEffect(() => {
             async function fetchOverview() {
+                const result = await fetch(`${APP_URL}/api/tutor/overview/${id}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        
+                       
+                    }
+                    }
+                );
                 
-                const data = await getTutorOverview();
-                setData(data?.data?.data);
+
+            const data = await result.json();
+            console.log(data);
+                
+                setData(data?.data);
                 setLoading(false);
             }
             fetchOverview();
-        }, [data])
+        }, [id,APP_URL])
         
 
 

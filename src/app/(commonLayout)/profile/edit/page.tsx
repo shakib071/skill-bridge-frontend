@@ -40,7 +40,7 @@ export default function UpdateUserForm() {
   const session = context?.session;
   const [loading, setLoading] = useState(false);
    const roles = ["STUDENT", "TUTOR"];
-   const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
+  //  const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
    const router = useRouter();
 

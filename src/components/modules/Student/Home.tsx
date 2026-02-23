@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 
 import { TutorCardSkeleton } from "../Tutor/LoadingSkeleton";
 import { getUserOverView } from "@/services/action.service";
+import { useSessionContext } from "@/providers/SessionProvider";
+// import { useSessionContext } from "@/providers/SessionProvider";
+
 
 // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
 interface StudentOverview {
@@ -19,30 +22,35 @@ export default function StudentOverviewStats() {
  
         const [data, setData] = useState<StudentOverview | null>(null);
         const [loading, setLoading] = useState(true);
+        const context =  useSessionContext();
+        const session = context?.session;
+        const id = session?.user?.id;
+        console.log(id);
+        const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
         
     
         useEffect(() => {
             async function fetchOverview() {
                 
-                // const result = await fetch(`${APP_URL}/api/user/overview`,
-                // {
-                //     method: "GET",
-                //     credentials: "include",
-                //     headers: {
-                //         "Content-Type": "application/json",
+                const result = await fetch(`${APP_URL}/api/user/overview/${id}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
                        
-                //     }
-                //     }
-                // );
-                // const data = await result.json();
-                const result = await getUserOverView();
-                const data = result?.data;
+                    }
+                    }
+                );
+                const data = await result.json();
+                // const result = await getUserOverView(id as string);
+                // const data = result?.data;
                 setData(data?.data);
                 setLoading(false);
                 console.log({result,data});
             }
             fetchOverview();
-        }, [])
+        }, [id,APP_URL])
         
 
 

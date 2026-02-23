@@ -318,12 +318,13 @@ export async function cancelUpdateBookingStatus(id:string) {
         }
 }
 
-export async function getUserOverView() {
+export async function getUserOverView(id:string) {
+    
         try{
             const cookieStore = await cookies();
-            
+            console.log({id});
 
-            const result = await fetch(`${APP_URL}/api/user/overview`,
+            const result = await fetch(`${APP_URL}/api/user/overview/${id}`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -337,7 +338,7 @@ export async function getUserOverView() {
                 
 
             const data = await result.json();
-            // console.log(data);
+            console.log(data,cookieStore);
             revalidatePath('/students/dashboard');
             return {data:data,error:null};
         }
