@@ -22,7 +22,14 @@ Built with **Next.js 16**, **React 19**, **TypeScript**, **Tailwind CSS v4**, an
 | **Backend API** | [https://skillbridges-ten.vercel.app](https://skillbridges-ten.vercel.app) |
 
 
+## 🔗 Repositories
 
+| | URL |
+|--|-----|
+| **Frontend** | [github.com/shakib071/skill-bridge-frontend](https://github.com/shakib071/skill-bridge-frontend) |
+| **Backend** | [github.com/shakib071/skill-bridge-backend](https://github.com/shakib071/skill-bridge-backend) |
+
+---
 
 
 ## 🚀 Features
