@@ -64,6 +64,13 @@ export function LoginForm({
           return;
         }
 
+        if (data?.user && "status" in data.user && data.user.status !== "ACTIVE") {
+          toast.error("Your account has been suspended.", { id: toastId });
+          await authClient.signOut(); 
+          router.push("/banned");
+          return;
+      }
+
         toast.success("User Logged in Successfully", { id: toastId });
         router.push("/");
       } catch (err) {

@@ -7,6 +7,7 @@ import { Tutor } from "@/types/tutor.type";
 import { HeroSection } from "@/components/modules/Homepage/HeroSection";
 import { useEffect, useState } from "react";
 import {TutorCardSkeleton} from "../../components/modules/Tutor/LoadingSkeleton"
+// import { getSession } from "@/services/action.service";
 
 
 
@@ -21,7 +22,12 @@ export default function Home() {
   const [tutors, setTutors] = useState<Tutor[]>([]);
   const [loading, setLoading] = useState(true);
   const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
-
+  
+  // const test = async() => {
+  //   const sessionData = await getSession();
+  //   console.log({sessionData});
+  // }
+  // test();
  
 
   useEffect(() => {

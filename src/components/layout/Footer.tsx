@@ -38,7 +38,7 @@ export function Footer() {
                     Tutors
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/about" className="hover:text-indigo-600">
                     About
                   </Link>
@@ -47,7 +47,7 @@ export function Footer() {
                   <Link href="/contact" className="hover:text-indigo-600">
                     Contact
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>
@@ -59,7 +59,7 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/signup" className="hover:text-indigo-600">
+                  <Link href="/register" className="hover:text-indigo-600">
                     Sign Up
                   </Link>
                 </li>

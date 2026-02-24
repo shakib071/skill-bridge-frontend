@@ -12,6 +12,7 @@ export interface User {
   phone?: string | null;
 
   isActive: boolean;
+  
 
   createdAt: string;
   updatedAt: string;
