@@ -19,7 +19,7 @@ export default  function Page() {
             if (!id) return;
             const tutor = await getTutorById(id);
             setTutor(tutor?.data?.data);
-            console.log(tutor);
+            // console.log(tutor);
             setLoading(false);
         }
         fetchTutor();

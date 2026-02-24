@@ -62,9 +62,9 @@ export  function CategoriesTable({ categories }: {categories: Category[]}) {
       //   body: JSON.stringify({ name, description }),
       // });
       // const data = await res.json();
-      console.log(name,description);
+      // console.log(name,description);
       const data = await postCategory(name,description);
-      console.log(data);
+      // console.log(data);
       if (!data?.data?.success) throw new Error(data?.data?.message || "Failed to create category");
       toast.success("Category created!");
       setOpen(false);

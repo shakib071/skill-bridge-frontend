@@ -67,7 +67,7 @@ export default function UpdateUserForm() {
 
         // const data = await res.json();
         const result = await updateUserData(value);
-        console.log(result);
+        // console.log(result);
         if(!result?.data?.success){
             toast.error(result?.data?.message || "Failed to update user",{id:toastId});
             return;

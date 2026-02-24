@@ -10,7 +10,7 @@ export default async function page() {
     const availabilityData = await AvailabilityService.getAllAvailability();
     
 
-    console.log(availabilityData);
+    // console.log(availabilityData);
 
   return (
     <div className="p-4">

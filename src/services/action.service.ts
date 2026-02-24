@@ -62,7 +62,7 @@ export async function changeFeatureStatus(tutorId:string,feature:boolean) {
                 body: JSON.stringify({ isFeatured : feature }), 
             });
             const data = await result.json();
-            console.log(data);
+            // console.log(data);
             revalidatePath('/admin/dashboard/users');
             return {data:data,error:null};
         }
@@ -92,7 +92,7 @@ export async function createTutorProfile(value:Record<string,string>) {
                 }),
                 });
             const data = await result.json();
-            console.log(data);
+            // console.log(data);
             revalidatePath('/tutors');
             revalidatePath('/');
             return {data:data,error:null};
@@ -115,7 +115,7 @@ export async function updateUserData(value:{name:string,role: "STUDENT" | "TUTOR
                 body: JSON.stringify(value),
                 });
             const data = await result.json();
-            console.log(data);
+            // console.log(data);
             revalidatePath('/profile');
             return {data:data,error:null};
         }
@@ -322,7 +322,7 @@ export async function getUserOverView(id:string) {
     
         try{
             const cookieStore = await cookies();
-            console.log({id});
+            // console.log({id});
 
             const result = await fetch(`${APP_URL}/api/user/overview/${id}`,
                 {
@@ -338,7 +338,7 @@ export async function getUserOverView(id:string) {
                 
 
             const data = await result.json();
-            console.log(data,cookieStore);
+            // console.log(data,cookieStore);
             revalidatePath('/students/dashboard');
             return {data:data,error:null};
         }

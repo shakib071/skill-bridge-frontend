@@ -17,7 +17,7 @@ export default function Home() {
 
   
   const { session, isPending }:any= useSessionContext();
-  console.log({session,isPending});
+  // console.log({session,isPending});
 
   const [tutors, setTutors] = useState<Tutor[]>([]);
   const [loading, setLoading] = useState(true);

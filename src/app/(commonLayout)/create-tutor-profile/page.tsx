@@ -50,7 +50,7 @@ export default  function TutorCreateForm() {
       try {
         const res = await categoryService.getAllCategory();
         setCategories(res.data?.data);
-        console.log(res.data?.data);
+        // console.log(res.data?.data);
       } catch (error) {
         toast.error("Failed to load categories");
       } finally {

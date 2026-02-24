@@ -19,7 +19,7 @@ export default async function page({
      const {data: reviews } = await ReviewService.getAllReviewByTutorID(id);
      const tutor:Tutor = tutors?.data[0]
     //  console.log(tutor)
-     console.log(reviews?.data);
+    //  console.log(reviews?.data);
     
     
 

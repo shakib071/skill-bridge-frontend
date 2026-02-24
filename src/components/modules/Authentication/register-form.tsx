@@ -49,7 +49,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       provider:"google",
       callbackURL: process.env.NEXT_PUBLIC_CLIENT_URL as string
     });
-    console.log(data);
+    // console.log(data);
   };
 
   

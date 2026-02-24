@@ -24,7 +24,7 @@ export  function ProfileCard() {
  
 
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
   
   
   const dateString = "Sat Jan 31 2026 07:42:30 GMT+0600 (Bangladesh Standard Time)";

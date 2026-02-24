@@ -47,7 +47,7 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
   
   const session = sessionContext?.session;
   // const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL;
-    console.log({tutor,availability});
+    // console.log({tutor,availability});
   const form = useForm({
     defaultValues: {
       slotId: "",
@@ -59,7 +59,7 @@ export default function BookSessionForm({ tutor, availability }: BookingFormProp
     },
     onSubmit: async ({ value }) => {
       const toastId = toast.loading("Booking session...");
-      console.log(value);
+      // console.log(value);
       try {
         const slot = availability.find((s) => s.id === value.slotId);
         if (!slot) throw new Error("Slot not found");
@@ -108,7 +108,7 @@ useEffect(() => {
       return;
     }
 
-    console.log(selectedSlot);
+    // console.log(selectedSlot);
     
     const slot = availability.find((s) => s.id === selectedSlot);
     
@@ -131,7 +131,7 @@ useEffect(() => {
   calculatePrice(); 
 }, [selectedSlot, tutor.hourlyRate, availability]);
 
-console.log({duration,totalPrice});
+// console.log({duration,totalPrice});
 
   return (
     <Card className="max-w-md mx-auto mt-8">

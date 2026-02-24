@@ -38,7 +38,7 @@ export function LoginForm({
       callbackURL:window.location.origin,
      
     });
-    console.log(data);
+    // console.log(data);
   };
 
   const formSchema = z.object({

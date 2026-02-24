@@ -22,7 +22,7 @@ export default function TutorOverviewStats() {
         const context =  useSessionContext();
           const session = context?.session;
           const id = session?.user?.id;
-          console.log(id);
+          // console.log(id);
           const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
     
         useEffect(() => {
@@ -41,7 +41,7 @@ export default function TutorOverviewStats() {
                 
 
             const data = await result.json();
-            console.log(data);
+            // console.log(data);
                 
                 setData(data?.data);
                 setLoading(false);

@@ -21,7 +21,7 @@ import { changeFeatureStatus, handleBan } from "@/services/action.service";
 export function UsersTable({ users }: { users: User[] }) {
   const router = useRouter();
   
-  console.log(users);
+  // console.log(users);
 
   const handleBanUnban = async(user: User) => {
     let status = "ACTIVE";
@@ -68,7 +68,7 @@ export function UsersTable({ users }: { users: User[] }) {
     // const result = await userService.updateUserStatus(user?.id,status);
 
 
-    console.log(status);
+    // console.log(status);
 
   };
 
@@ -86,9 +86,9 @@ export function UsersTable({ users }: { users: User[] }) {
 
       // const data = await result.json();
       // console.log(result);
-      console.log({tutorId,feature});
+      // console.log({tutorId,feature});
       const result = await changeFeatureStatus(tutorId,feature);
-      console.log(result);
+      // console.log(result);
 
       if(!result?.data?.success){
         toast.error("Updating failed",{id:toastId});

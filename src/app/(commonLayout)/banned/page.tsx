@@ -118,7 +118,7 @@ export default function Page() {
           <span className="text-zinc-700 text-xs tracking-widest uppercase">
             Need help?{" "}
             <a
-              href="mailto:support@example.com"
+              href="mailto:shakibhasan071@gmail.com"
               className="text-zinc-500 hover:text-zinc-300 transition-colors underline underline-offset-4"
             >
               Contact Support

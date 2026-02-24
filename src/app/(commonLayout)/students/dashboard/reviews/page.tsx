@@ -5,7 +5,7 @@ import React from 'react'
 export  default async function page() {
 
   const bookings = await bookingsService.getAllCompletedBookings();
-  console.log(bookings?.data?.data);
+  // console.log(bookings?.data?.data);
 
   return (
         <div>

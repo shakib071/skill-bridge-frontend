@@ -25,7 +25,7 @@ export default function StudentOverviewStats() {
         const context =  useSessionContext();
         const session = context?.session;
         const id = session?.user?.id;
-        console.log(id);
+        // console.log(id);
         const APP_URL = process.env.NEXT_PUBLIC_SERVER_URL as string;
         
     
@@ -47,7 +47,7 @@ export default function StudentOverviewStats() {
                 // const data = result?.data;
                 setData(data?.data);
                 setLoading(false);
-                console.log({result,data});
+                // console.log({result,data});
             }
             fetchOverview();
         }, [id,APP_URL])

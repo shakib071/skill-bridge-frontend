@@ -11,7 +11,7 @@ export default async function Page({
     params: Promise<{ id: string }>;
 })  {
     const {id} = await params;
-    console.log(id);
+    // console.log(id);
 
     const {data:tutor } = await tutorService.getTutorDetails(id);
     const {data:availability } = await AvailabilityService.getAvailabilityByIdWithoutBooked(id);

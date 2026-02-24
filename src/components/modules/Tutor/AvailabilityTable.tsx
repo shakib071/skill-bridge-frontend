@@ -30,7 +30,7 @@ export default  function AvailabilityTable({ data}: AvailabilityTableProps) {
                 }
         });
         const data = await result.json();
-        console.log(data);
+        // console.log(data);
         if(data?.success === true){
             toast.success("Availability deleted successfully.", { id: toastId });
             router.refresh();

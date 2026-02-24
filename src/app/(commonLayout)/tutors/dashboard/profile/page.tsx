@@ -24,7 +24,7 @@ export default function Page() {
             const tutor = await getTutorById(id);
             
             setTutor(tutor?.data?.data);
-            console.log(tutor?.data?.data);
+            // console.log(tutor?.data?.data);
             if(tutor?.data?.data?.id){
                 // const result = await fetch(`${APP_URL}/api/review/get-reviews/${tutor?.data?.data?.id}`,{
                 //     method: "GET",

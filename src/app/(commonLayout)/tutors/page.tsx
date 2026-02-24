@@ -19,7 +19,7 @@ export default function TutorPage() {
     const [priceSort, setPriceSort] = useState("desc");
 
     const handleSearch =() => {
-      console.log(search,ratingSort,priceSort);
+      // console.log(search,ratingSort,priceSort);
 
       if(search==""){
           setTutors(tutors1);
