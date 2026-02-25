@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useSessionContext } from "@/providers/SessionProvider";
+// import { useSessionContext } from "@/providers/SessionProvider";
 import { Tutors } from "@/components/modules/Tutor/FeaturedTutor";
 import { Tutor } from "@/types/tutor.type";
 import { HeroSection } from "@/components/modules/Homepage/HeroSection";
 import { useEffect, useState } from "react";
 import {TutorCardSkeleton} from "../../components/modules/Tutor/LoadingSkeleton"
+import { BecomeTutorCTA } from "@/components/modules/Homepage/BecomeTutorCTA";
+import { FAQ } from "@/components/modules/Homepage/FAQ";
 // import { getSession } from "@/services/action.service";
 
 
@@ -16,7 +18,7 @@ import {TutorCardSkeleton} from "../../components/modules/Tutor/LoadingSkeleton"
 export default function Home() {
 
   
-  const { session, isPending }:any= useSessionContext();
+  // const { session, isPending }:any= useSessionContext();
   // console.log({session,isPending});
 
   const [tutors, setTutors] = useState<Tutor[]>([]);
@@ -57,13 +59,15 @@ export default function Home() {
               <TutorCardSkeleton key={i} />
             ))}
           </div>
-        ) : tutors && tutors.length > 0 ? (
-          <Tutors title="Featured Tutors" tutors={tutors} />
-        ) : (
-          <p className="text-center py-10 text-gray-500">No Featured Tutors</p>
-        )
-}
+          ) : tutors && tutors.length > 0 ? (
+            <Tutors title="Featured Tutors" tutors={tutors} />
+          ) : (
+            <p className="text-center py-10 text-gray-500">No Featured Tutors</p>
+          )
+        }
 
+        <BecomeTutorCTA></BecomeTutorCTA>
+        <FAQ></FAQ>
         
         
       </div>

@@ -263,12 +263,26 @@ const Navbar = ({
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-6 p-4">
+                  {/* <Accordion
+                    type="single"
+                    collapsible
+                    className="flex w-full flex-col gap-4"
+                  >
+                    {menu.map((item) => renderMobileMenuItem(item))}
+                  </Accordion> */}
+
                   <Accordion
                     type="single"
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
                     {menu.map((item) => renderMobileMenuItem(item))}
+                    {session?.user?.role === "TUTOR" &&
+                        tutorMenu.map((item) => renderMobileMenuItem(item))}
+                    {session?.user?.role === "STUDENT" &&
+                        studentMenu.map((item) => renderMobileMenuItem(item))}
+                    {session?.user?.role === "ADMIN" &&
+                        adminMenu.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
