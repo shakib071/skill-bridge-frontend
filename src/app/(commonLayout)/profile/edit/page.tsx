@@ -72,11 +72,14 @@ export default function UpdateUserForm() {
             toast.error(result?.data?.message || "Failed to update user",{id:toastId});
             return;
         }
-
+        
         toast.success("User updated successfully!",{id:toastId});
-
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        toast.info("Your session will be refreshed in few minutes to reflect the changes",{id:toastId});
         await context?.refetch?.();
+        router.refresh();
         router.push("/profile");
+        // window.location.replace("/profile");
 
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : "Something went wrong";

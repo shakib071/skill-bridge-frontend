@@ -4,6 +4,7 @@ export const authClient = createAuthClient({
     baseURL: typeof window !== "undefined" ? window.location.origin : "",
     fetchOptions:{
         credentials:'include',
+        cache:"no-store",
     }
     
 })

@@ -117,6 +117,8 @@ export async function updateUserData(value:{name:string,role: "STUDENT" | "TUTOR
             const data = await result.json();
             // console.log(data);
             revalidatePath('/profile');
+            revalidatePath('/profile/edit');
+            // revalidatePath('/');
             return {data:data,error:null};
         }
         catch(e){
