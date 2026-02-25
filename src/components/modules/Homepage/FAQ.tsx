@@ -74,7 +74,7 @@ export function FAQ() {
           ))}
         </Accordion>
 
-        {/* Bottom CTA */}
+        
         <div className="text-center mt-10">
           <p className="text-sm text-muted-foreground mb-3">
             Still have questions?
